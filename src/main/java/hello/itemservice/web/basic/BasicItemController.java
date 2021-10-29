@@ -39,6 +39,12 @@ public class BasicItemController {
         return "basic/addForm";
     }
 
+/*    ModelAttribute는 사실 queryParameter를 받는 역할도 수행하지만 model 객체에 자동으로 addAttribute 역할을 수행해준다.
+    보통 @ModelAttribute("name")의 value 값이 model의 name이 되는데 이 value 역시 생략하면 클래스의 이름으로 model 객체에 등록 해준다.
+    ex1) @ModelAttribute("item") Item item -> model.addAttribute("item", item)
+    ex2) @ModelAttribute Item item -> model.addAttribute("item", item): 클래스명이 첫글자를 소문자로 변경후 model attribute의 이름이 된다.
+    ex3) Item item -> model.addAttribute("item", item): ModelAttribute를 생략할 수도 있다.
+    */
     @PostMapping("/add")
     public String itemAdd(@ModelAttribute Item item) {
         itemRepository.save(item);
