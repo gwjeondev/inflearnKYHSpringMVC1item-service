@@ -46,9 +46,22 @@ public class BasicItemController {
     ex3) Item item -> model.addAttribute("item", item): ModelAttribute를 생략할 수도 있다.
     */
     @PostMapping("/add")
-    public String itemAdd(@ModelAttribute Item item) {
+    public String addItem(@ModelAttribute Item item) {
         itemRepository.save(item);
         return "redirect:";
+    }
+
+    @GetMapping("/{itemId}/edit")
+    public String editForm(@PathVariable Long itemId, Model model) {
+        Item item = itemRepository.findById(itemId);
+        model.addAttribute("item", item);
+        return "basic/editForm";
+    }
+
+    @PostMapping("/{itemId}/edit")
+    public String editItem(@PathVariable Long itemId, @ModelAttribute Item item) {
+        itemRepository.update(itemId, item);
+        return "redirect:/basic/items/{itemId}";
     }
 
     /**
