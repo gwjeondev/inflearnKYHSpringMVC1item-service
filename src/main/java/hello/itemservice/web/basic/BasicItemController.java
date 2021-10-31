@@ -48,7 +48,9 @@ public class BasicItemController {
     @PostMapping("/add")
     public String addItem(@ModelAttribute Item item) {
         itemRepository.save(item);
-        return "redirect:";
+        //return "redirect:";
+        //return "basic/item";
+        return "redirect:/basic/items/" + item.getId();  //prg post redirect get
     }
 
     @GetMapping("/{itemId}/edit")
